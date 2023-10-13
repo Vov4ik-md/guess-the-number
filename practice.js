@@ -62,3 +62,25 @@ selectNumber.addEventListener("mouseleave", function () {
 //remove event Listner
 
 //selectNumber.removeEventListener('mouseenter', chgCol)
+
+
+
+//functii cu Argumente suplimentare
+
+function handleClickWithArg(message) {
+	console.log(message)
+}
+
+let myMessage = 'Mesaj personalizat: Butonul a fost tastat'
+element.addEventListener('click', () => { handleClickWithArg(myMessage) })
+
+
+//! Exercitiu - creem programa care calculeaza numarul de clicuri facute pe un element alex
+
+let clickAgain = document.querySelector('.tryagain')
+let a = 1
+
+clickAgain.addEventListener('click', (event) => {
+	console.log(`a fost facut ${event.type} de ${a} ori`)
+	a++
+})
