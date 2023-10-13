@@ -84,3 +84,62 @@ clickAgain.addEventListener('click', (event) => {
 	console.log(`a fost facut ${event.type} de ${a} ori`)
 	a++
 })
+
+
+// cod scris in data de 13.10 la lectie
+
+const buttonAgain = document.querySelector(".tryagain");
+const butonulCheck = document.querySelector(".check");
+const messageElement = document.querySelector(".text");
+const secretNumberElem = document.querySelector(".number");
+const guessElem = document.querySelector(".guess");
+const scoreEl = document.querySelector(".score");
+const highscoreEl = document.querySelector(".higscore");
+
+let secretNumber = Math.trunc(Math.random() * 20 + 1);
+let score = 20;
+let highscore = 0;
+
+butonulCheck.addEventListener("click", function () {
+  let guess = Number(guessElem.value);
+  //if no number in input
+  if (!guess) {
+    messageElement.messageElement = "No number!";
+  } else if (guess == secretNumber) {
+    messageElement.textContent = "Bingo";
+    document.body.style.backgroundColor = "lightgreen";
+    if (score > highscore) {
+      highscore = score;
+      highscoreEl.textContent = highscore;
+    }
+  } else if (guess > secretNumber) {
+    if (score > 1) {
+      messageElement.textContent = "To high !";
+      score--;
+      scoreEl.textContent = score;
+    } else {
+      messageElement.textContent = "GAME OVER!!!";
+      scoreEl.textContent = "0";
+    }
+  } else if (guess < secretNumber) {
+    if (score > 1) {
+      messageElement.textContent = "To low !";
+      score--;
+      scoreEl.textContent = score;
+    } else {
+		
+      messageElement.textContent = "GAME OVER!!!";
+      scoreEl.textContent = "0";
+    }
+  }
+});
+
+buttonAgain.addEventListener("click", function (event) {
+  score = 20;
+  scoreEl.textContent = score;
+  secretNumber = Math.trunc(Math.random() * 20 + 1);
+  messageElement.textContent = "Start guessing...";
+  document.body.style.backgroundColor = "";
+  guessElem.value = "";
+  secretNumberElem.textContent = "?";
+});
