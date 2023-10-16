@@ -11,49 +11,67 @@ let score = 20
 let highscore = 0
 
 
-checkBtn.addEventListener("click", function () {
+
+//Functia ce afiseaza mesajul
+function displayMessage(message) {
+	messageIfCHekced.textContent = message
+}
+
+
+//Verificare numar corect prin tastarea butonului 'Enter'
+userInput.addEventListener('keydown', (event) => {
+	if (event.key === 'Enter') {
+		check()
+	}
+})
+//Verificare numar corect prin mouse click sting
+checkBtn.addEventListener("click", check)
+	
+//Functia de verificare
+function check() {
 	let guess = Number(userInput.value)
-	if (!guess) {
-		messageIfCHekced.textContent = "N-ati introdus nici o valoare";
-	} else if (guess < 1 || guess > 20) {
-		messageIfCHekced.textContent = 'N-ati urmat condiile jocului 🛑'
+	if (!guess || guess < 1 || guess > 20) {
+		displayMessage("N-ati urmat condiile jocului 🛑")
 	} else if (guess == randNum) {
 		guessedNumber.textContent = guess
-		messageIfCHekced.textContent = "Bingo 🏆";
+		displayMessage("Bingo 🏆")
 		document.body.style.backgroundColor = "#1aaf53"
 		if (score > highscore) {
 			highscore = score
 			highscoreElement.textContent = score
 		}
-	} else if (guess > randNum) {
+	} else if (guess !== randNum) {
+		
 		if (score > 1) {
-			messageIfCHekced.textContent = "To high 🔺"
+			displayMessage(guess > randNum ? "To high 🔺" : "To low 🔻")
 			score--
 			scoreElemement.textContent = score
+			userInput.value = ''
 		} else {
-			messageIfCHekced.textContent = 'Game Over !!! 😭'
+			displayMessage('Game Over !!! 😭')
 			scoreElemement.textContent = '0'
 			document.body.style.backgroundColor = "#e70606";
 		}
-	} else if (guess < randNum) {
+	} /*else if (guess < randNum) {
 		if (score > 1) {
 			messageIfCHekced.textContent = "To low 🔻"
 			score--
 			scoreElemement.textContent = score
+			userInput.value = ''
 		} else {
 			messageIfCHekced.textContent = "Game Over !!! 😭"
 			scoreElemement.textContent = "0"
 			document.body.style.backgroundColor = '#e70606'
 		}
-	}
-});
+	}*/
+}
 
 
 againButton.addEventListener('click', function () {
 	randNum = Math.floor((Math.random() * 20) + 1)
 	score = 20
 	scoreElemement.textContent = score
-	messageIfCHekced.textContent = "Start guessing..."
+	displayMessage("Start guessing...")
 	document.body.style.backgroundColor = ""
 	userInput.value = ''
 	guessedNumber.textContent = '?'
