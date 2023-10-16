@@ -9,7 +9,7 @@ let scoreElemement = document.querySelector('.score')
 let highscoreElement = document.querySelector('.highscore')
 let score = 20
 let highscore = 0
-
+const canvas = document.querySelector('#confetti')
 
 
 //Functia ce afiseaza mesajul
@@ -36,6 +36,8 @@ function check() {
 		guessedNumber.textContent = guess
 		displayMessage("Bingo 🏆")
 		document.body.style.backgroundColor = "#1aaf53"
+		const jsConfetti = new JSConfetti()
+		jsConfettu.addConfetti()
 		if (score > highscore) {
 			highscore = score
 			highscoreElement.textContent = score
